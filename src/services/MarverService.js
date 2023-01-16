@@ -35,7 +35,23 @@ const useMarvelService = () => {
         }
     }
 
-    return {loading, error, getAllCharacters, getCharacter, clearError}
+    const getAllComics = async (offset = _baseOffset) => {
+        const res = await request(`${_apiBase}comics?limit=8&offset=${offset}&${_apiKey}`);
+        return res.data.results.map(_transformComic);
+    }
+
+    const _transformComic = (comic) => {  
+        let finalPrice = comic.prices.price !== 0 ? comic.prices.price : "NOT AVAILABLE"
+        let finalUrl = comic.urls.length > 0 ? comic.urls[0].url : "marvel.com";
+        return {
+            title: comic.title,
+            thumbnail: comic.thumbnail.path + "." + comic.thumbnail.extension, 
+            price: finalPrice,
+            url: finalUrl,
+        }
+    }
+
+    return {loading, error, getAllCharacters, getCharacter, clearError, getAllComics}
 }
 
 export default useMarvelService;
