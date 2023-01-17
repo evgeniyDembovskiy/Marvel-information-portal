@@ -5,10 +5,7 @@ import useMarvelService from './../services/MarverService';
 
 const Comics = () => {
     return (
-        <div>
-            <AppHeader/>
-            <ComicsList/>
-        </div>
+        <ComicsList/>
     );
 };
 

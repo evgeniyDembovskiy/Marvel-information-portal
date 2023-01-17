@@ -1,6 +1,4 @@
 import './comicsList.scss';
-import uw from '../../resources/img/UW.png';
-import xMen from '../../resources/img/x-men.png';
 import { useState, useEffect } from 'react';
 import useMarvelService from './../../services/MarverService';
 import ErrorMessage from './../errorMessage/ErrorMessage';
@@ -10,7 +8,7 @@ const ComicsList = () => {
     const [comicsList, setComicsList] = useState([]);
     const [newItemLoading, setNewItemLoading] = useState(false);
     const [offset, setOffset] = useState(210);
-    const [charEnded, setCharEnded] = useState(false);
+    const [comicsEnded, setComicsEnded] = useState(false);
 
     const {loading, error, getAllComics} = useMarvelService();
 
@@ -21,9 +19,9 @@ const ComicsList = () => {
         }
 
         setComicsList([...comicsList, ...newComicsList]);
-        setNewItemLoading(newItemLoading => false);
+        setNewItemLoading(false);
         setOffset(offset => offset + 9);
-        setCharEnded(charEnded => ended)
+        setComicsEnded(ended)
     }
 
     const onRequest = (offset) => {
@@ -44,7 +42,7 @@ const ComicsList = () => {
             }
             return (
                 <li className="comics__item">
-                <a href={item.url} target="_blank">
+                <a href={item.url} target="_blank" rel="noreferrer">
                     <img src={item.thumbnail} alt="thumbnail" className="comics__item-img" style={imgStyle}/>
                     <div className="comics__item-name">{item.title}</div>
                     <div className="comics__item-price">{item.price}</div>
@@ -72,7 +70,7 @@ const ComicsList = () => {
             <button 
                 className="button button__main button__long"
                 disabled={newItemLoading}
-                style={{"display": charEnded ? "none" : "block"}}
+                style={{"display": comicsEnded ? "none" : "block"}}
                 onClick={() => onRequest(offset)}>
                 <div className="inner">load more</div>
             </button>

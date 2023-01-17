@@ -18,6 +18,7 @@ const CharList = (props) => {
     }, []);
 
     const onRequest = (offset, initial) => {
+        console.log("OnRequest");
         initial ? setNewItemLoading(false) : setNewItemLoading(true);
         getAllCharacters(offset)
             .then(onCharListLoaded)
@@ -30,11 +31,12 @@ const CharList = (props) => {
         }
 
         setCharList(charList => [...charList, ...newCharList]);
-        setNewItemLoading(newItemLoading => false);
+        setNewItemLoading(false);
         setOffset(offset => offset + 9);
-        setCharEnded(charEnded => ended)
+        setCharEnded(ended)
     }
 
+    console.log(charList);
 
     const renderItems = (arr) => {
         const items =  arr.map((item, i) => {

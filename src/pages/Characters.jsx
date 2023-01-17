@@ -16,25 +16,22 @@ const Characters = () => {
     }
    
     return (
-        <>
-            <AppHeader/>
-            <main>
+        <main>
+            <ErrorBoundary>
+                <RandomChar/>
+            </ErrorBoundary>
+            
+            <div className="char__content">
                 <ErrorBoundary>
-                    <RandomChar/>
+                    <CharList onCharSelected={onCharSelected}/>
                 </ErrorBoundary>
                 
-                <div className="char__content">
-                    <ErrorBoundary>
-                        <CharList onCharSelected={onCharSelected}/>
-                    </ErrorBoundary>
-                    
-                    <ErrorBoundary>
-                        <CharInfo charId={selectedChar}/>
-                    </ErrorBoundary>
-                </div>
-                <img className="bg-decoration" src={decoration} alt="vision"/>
-            </main>
-        </>
+                <ErrorBoundary>
+                    <CharInfo charId={selectedChar}/>
+                </ErrorBoundary>
+            </div>
+            <img className="bg-decoration" src={decoration} alt="vision"/>
+        </main>
     )
 }
 
