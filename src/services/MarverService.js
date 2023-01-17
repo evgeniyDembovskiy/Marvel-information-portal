@@ -24,6 +24,8 @@ const useMarvelService = () => {
         if (description.length > 220) {
             description = description.slice(0, 217) + "...";
         }
+
+        let finalCollection = char.urls.filter(item => item.type === "comiclink");
         return {
             id: char.id,
             name: char.name,
@@ -31,7 +33,8 @@ const useMarvelService = () => {
             thumbnail: char.thumbnail.path + "." + char.thumbnail.extension, 
             homepage: char.urls[0].url,
             wiki: char.urls[1].url,
-            comics: char.comics.items
+            comics: char.comics.items,
+            collection: finalCollection[0].url,
         }
     }
 

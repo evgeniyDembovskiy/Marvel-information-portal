@@ -32,6 +32,7 @@ const CharInfo = (props) => {
 
     const onCharLoaded = (char) => {
         setChar(char);
+        console.log(char.collection);
     }
 
     const skeleton = char || loading || error ? null : <Skeleton/>;
@@ -49,7 +50,8 @@ const CharInfo = (props) => {
 }
 
 const View = ({char}) => {
-    const {name, description, thumbnail, homepage, wiki, comics} = char;
+    const {name, description, thumbnail, homepage, wiki, comics, collection} = char;
+    console.log(collection);
     let imgStyle = {"objectFit" : "cover"};
     if (thumbnail.indexOf("image_not_available") !== -1) {
         imgStyle = {"objectFit" : "contain"};
@@ -86,6 +88,10 @@ const View = ({char}) => {
                     })
                 }
             </ul>
+            <div>
+                <a href={collection} target="_blank" rel="noreferrer">Open collection of comics with this character</a>
+            </div>
+
         </>
     )
 }

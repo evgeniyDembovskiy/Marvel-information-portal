@@ -1,6 +1,6 @@
 import Characters from "../../pages/Characters";
 import Comics from "../../pages/Comics";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AppHeader from "../appHeader/AppHeader";
 
 const App = () => {
@@ -8,14 +8,10 @@ const App = () => {
         <Router>
             <div className="app">
                 <AppHeader/>
-                <Switch>
-                    <Route exact path="/">
-                        <Characters/>
-                    </Route>
-                    <Route exact path="/comics">
-                        <Comics/>
-                    </Route>
-                </Switch>
+                <Routes>
+                    <Route path="/" element={<Characters/>}/>
+                    <Route path="/comics" element={<Comics/>}/>
+                </Routes>
             </div>
         </Router>
     )

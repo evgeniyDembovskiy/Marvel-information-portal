@@ -8,7 +8,7 @@ const CharList = (props) => {
 
     const [charList, setCharList] = useState([]);
     const [newItemLoading, setNewItemLoading] = useState(false);
-    const [offset, setOffset] = useState(210);
+    const [offset, setOffset] = useState(0);
     const [charEnded, setCharEnded] = useState(false);
     
     const {loading, error, getAllCharacters} = useMarvelService();
@@ -18,7 +18,6 @@ const CharList = (props) => {
     }, []);
 
     const onRequest = (offset, initial) => {
-        console.log("OnRequest");
         initial ? setNewItemLoading(false) : setNewItemLoading(true);
         getAllCharacters(offset)
             .then(onCharListLoaded)
@@ -35,8 +34,6 @@ const CharList = (props) => {
         setOffset(offset => offset + 9);
         setCharEnded(ended)
     }
-
-    console.log(charList);
 
     const renderItems = (arr) => {
         const items =  arr.map((item, i) => {
