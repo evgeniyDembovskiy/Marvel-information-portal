@@ -69,14 +69,35 @@ main {
     animation: pulse 1.5s ease-in-out .5s infinite
 }
 
+.p404 {
+    &_paragraph {
+        text-align: center;
+        font-weight: bold;
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    &_link {
+        display: block;
+        text-align: center;
+        font-weight: bold;
+        font-size: 30px;
+        margin-top: 30px;
+        color: rgb(7, 28, 88);
+        transition: all 0.2s;
+        &:hover {
+            color: rgb(66, 94, 170);
+        }
+    }
+}
+
 @keyframes pulse {
     0% {
-        opacity: 1
+        opacity: 1;
     }
     50% {
-        opacity: .4
+        opacity: .4;
     }
     100% {
-        opacity: 1
+        opacity: 1;
     }
 }

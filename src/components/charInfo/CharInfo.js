@@ -89,7 +89,7 @@ const View = ({char}) => {
                 }
             </ul>
             <div>
-                <a href={collection} target="_blank" rel="noreferrer">Open collection of comics with this character</a>
+                <a className="collection_btn" href={collection} target="_blank" rel="noreferrer">Open collection of comics with this character</a>
             </div>
 
         </>
