@@ -6,6 +6,7 @@ import ErrorBoundary from '../../components/errorBoundary/ErrorBoundary';
 
 import decoration from './../../resources/img/vision.png';
 import AppHeader from '../../components/appHeader/AppHeader';
+import FindForm from "../../components/findForm/FindForm";
 
 const Characters = () => {
 
@@ -27,7 +28,11 @@ const Characters = () => {
                 </ErrorBoundary>
                 
                 <ErrorBoundary>
-                    <CharInfo charId={selectedChar}/>
+                    <div style={{position:"sticky", top: 15}}>
+                        <CharInfo charId={selectedChar}/>
+                        <FindForm/>
+                    </div>
+
                 </ErrorBoundary>
             </div>
             <img className="bg-decoration" src={decoration} alt="vision"/>

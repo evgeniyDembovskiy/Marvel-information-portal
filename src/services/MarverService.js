@@ -19,6 +19,15 @@ const useMarvelService = () => {
         return _transformCharacter(res.data.results[0]);
     }
 
+    const getCharacterByName = async (name) => {
+        const res = await request(`${_apiBase}characters?name=${name}&${_apiKey}`);
+        if(res.data.results.length > 0) {
+            return _transformCharacter(res.data.results[0]);
+        } else {
+            return {}
+        }
+    }
+
     const _transformCharacter = (char) => {  
         let description = char.description.length === 0 ? "There is no description for this character :(" : char.description;
         if (description.length > 220) {
@@ -72,7 +81,7 @@ const useMarvelService = () => {
         }
     }
 
-    return {loading, error, getAllCharacters, getCharacter, clearError, getAllComics, getComic}
+    return {loading, error, getAllCharacters, getCharacter, clearError, getAllComics, getComic, getCharacterByName}
 }
 
 export default useMarvelService;
