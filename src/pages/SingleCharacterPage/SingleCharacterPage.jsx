@@ -7,6 +7,7 @@ import useMarvelService from '../../services/MarverService';
 import Spinner from './../../components/spinner/Spinner';
 import ErrorMessage from './../../components/errorMessage/ErrorMessage';
 import AppBanner from '../../components/appBanner/AppBanner';
+import { Helmet } from 'react-helmet';
 
 const SingleCharacterPage = () => {
     const {charName} = useParams();
@@ -35,6 +36,7 @@ const SingleCharacterPage = () => {
                 name: "Character wasn't found...",
                 description: "Check the name and try again",
                 thumbnail: "https://picturesofmaidenhead.files.wordpress.com/2019/01/image-not-found.jpg",
+                notFoundFlag: true,
             })
         }
     }
@@ -53,10 +55,19 @@ const SingleCharacterPage = () => {
 }
 
 const View = ({char}) => {
-    const {name, description, thumbnail} = char;
+    const {name, description, thumbnail, notFoundFlag} = char;
+    const pageTitle = notFoundFlag ? "Not found" : name;
+    
 
     return (
         <>
+            <Helmet>
+                <meta
+                    name="description"
+                    content="Single character page"
+                    />
+                <title>{pageTitle}</title>
+            </Helmet>
             <AppBanner/>
             <div className="single-char">
                 <img src={thumbnail} alt="x-men" className="single-char__img"/>

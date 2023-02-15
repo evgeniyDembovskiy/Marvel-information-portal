@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import useMarvelService from '../../services/MarverService';
 import Spinner from './../../components/spinner/Spinner';
 import ErrorMessage from './../../components/errorMessage/ErrorMessage';
+import { Helmet } from 'react-helmet';
 
 
 const SingleComicPage = () => {
@@ -47,6 +48,13 @@ const View = ({comic}) => {
 
     return (
         <div className="single-comic">
+            <Helmet>
+                <meta
+                    name="description"
+                    content={`${title} comics page`}
+                    />
+                <title>{title}</title>
+            </Helmet>
             <img src={thumbnail} alt="x-men" className="single-comic__img"/>
             <div className="single-comic__info">
                 <h2 className="single-comic__name">{title}</h2>
