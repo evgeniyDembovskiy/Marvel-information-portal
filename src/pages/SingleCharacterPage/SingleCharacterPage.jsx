@@ -1,38 +1,48 @@
 import React from 'react';
-import './singleComicPage.scss';
+import './singleCharacterPage.scss';
 import { useParams, Link } from 'react-router-dom';
 
 import { useState, useEffect } from 'react';
 import useMarvelService from '../../services/MarverService';
 import Spinner from './../../components/spinner/Spinner';
 import ErrorMessage from './../../components/errorMessage/ErrorMessage';
+import AppBanner from '../../components/appBanner/AppBanner';
 
 const SingleCharacterPage = () => {
-    const {comicId} = useParams();
-    const [comic, setComic] = useState(null);
-    const {loading, error, getComic, clearError} = useMarvelService();
+    const {charName} = useParams();
+    
+    const [char, setChar] = useState(null);
+    const {loading, error, getCharacterByName, clearError} = useMarvelService();
 
     useEffect(() => {
-        updateComic();
+        updateChar();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [comicId]);
+    }, [charName]);
 
     
-    const updateComic = () => {    
+    const updateChar = () => {    
         clearError();
-        getComic(comicId)
-            .then(onComicLoaded)
+        getCharacterByName(charName)
+            .then(onCharLoaded)
     }
 
-    const onComicLoaded = (comic) => {
-        setComic(comic);
+    const onCharLoaded = (char) => {
+        console.log(char);
+        if (Object.keys(char).length > 0) {
+            setChar(char);
+        } else {
+            setChar({
+                name: "Character wasn't found...",
+                description: "Check the name and try again",
+                thumbnail: "https://picturesofmaidenhead.files.wordpress.com/2019/01/image-not-found.jpg",
+            })
+        }
     }
-
 
 
     const errorMessage = error ? <ErrorMessage/> : null;
     const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error || !comic) ? <View comic={comic}/> : null;
+    const content = !(loading || error || !char) ? <View char={char}/> : null;
     return (
         <>
             {errorMessage}
@@ -42,21 +52,21 @@ const SingleCharacterPage = () => {
     )
 }
 
-const View = ({comic}) => {
-    const {title, description, pageCount, thumbnail, language, price} = comic;
+const View = ({char}) => {
+    const {name, description, thumbnail} = char;
 
     return (
-        <div className="single-comic">
-            <img src={thumbnail} alt="x-men" className="single-comic__img"/>
-            <div className="single-comic__info">
-                <h2 className="single-comic__name">{title}</h2>
-                <p className="single-comic__descr">Description: {description}</p>
-                <p className="single-comic__descr">Page count: {pageCount} page(s)</p>
-                <p className="single-comic__descr">Language: {language}</p>
-                <div className="single-comic__price">{price}</div>
+        <>
+            <AppBanner/>
+            <div className="single-char">
+                <img src={thumbnail} alt="x-men" className="single-char__img"/>
+                <div className="single-char__info">
+                    <h2 className="single-char__name">{name}</h2>
+                    <p className="single-char__descr">{description}</p>
+                </div>
             </div>
-            <Link to="/comics" className="single-comic__back">Back to all</Link>
-        </div>
+        </>
+
     )
 }
 

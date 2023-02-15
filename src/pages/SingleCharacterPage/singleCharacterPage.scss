@@ -1,0 +1,17 @@
+.single-char {
+    display: flex;
+    padding-top: 10px;
+
+    &__img {
+        width: 300px;
+    }
+
+    &__info {
+        width: 600px;
+        margin-left: 30px;
+    }
+
+    &__name {
+        margin-bottom: 10px;
+    }
+}

@@ -5,6 +5,8 @@ import * as Yup from "yup";
 import { useState, useRef } from 'react';
 import useMarvelService from '../../services/MarverService';
 import Spinner from './../spinner/Spinner';
+import { Link } from 'react-router-dom';
+
 
 const FindForm = () => {
 
@@ -35,9 +37,10 @@ const FindForm = () => {
         infoMessage = isSearchSuccessful 
         ?   <div className='find-form__success-wrapper'>
                 <div className='find-form__success-text'>There is! Visit {currentChar.name} page?</div> 
-                <a href="google.com" className="button button__secondary">
+                {/* <a href="google.com" className="button button__secondary">
                     <div className="inner">to page</div>
-                </a>
+                </a> */}
+                <Link to={`/characters/${currentChar.name}`} className="button button__secondary"><div className="inner">to page</div></Link>
             </div>
         : <div className='find-form__failure'>The character wasn't found. Check the name and try again.</div> ;
     }
@@ -50,7 +53,8 @@ const FindForm = () => {
             }}
             validationSchema={Yup.object({
                 name: Yup.string()
-                        .min(2, "Минимум 2 символа!")
+                        .min(2, "Minimum of 2 characters!")
+                        .required("This field is required")
             })}
         onSubmit={values => findChar(values.name)}>
 
